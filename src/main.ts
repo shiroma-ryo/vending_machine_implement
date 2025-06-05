@@ -104,3 +104,5 @@ display()
 
 //  console.log("OK","|","Beer purchased")
 //     }
+
+export{display,buy,refill}
