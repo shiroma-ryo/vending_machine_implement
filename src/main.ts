@@ -10,7 +10,7 @@
 
 
 const drink: any[] = [
-    { name: "Milk", price: 120, qty: 0 },
+    { name: "Milk", price: 120, qty: 3 },
     { name: "Cola", price: 150, qty: 0 },
     { name: "Beer", price: 220, qty: 0 }
 ];
@@ -26,18 +26,18 @@ const display = () => {
     // console.log(drink[1].name,"|",drink[1].price,"|",drink[1].qty);
     // console.log(drink[2].name,"|",drink[2].price,"|",drink[2].qty);
 }
-display()
+//display()
 
-const choise = "Sake"
-const choiseprice = 200
-const buy = () => {
-    let hantei:boolean = false;
+// const choise = "Sake"
+// const choiseprice = 200
+const buy = (choise:string,choiseprice:number) => {
+    let hantei: boolean = false;
     for (let i = 0; i < drink.length; i++) {
-        if (drink[i] == choise) {
+        if (drink[i].name == choise) {
             hantei = true;
         }
     }
-    if (! hantei) {
+    if (!hantei) {
         console.log("NG", "|", choise, "is not registered")
         return;
     }
@@ -54,10 +54,11 @@ const buy = () => {
                 return
             }
             console.log("OK", "|", drinkpick.name, "purchased")
+            drinkpick.qty = drinkpick.qty - 1;
         }
     }
 }
-buy()
+//buy()
 
 const addstock: any[] = [
     { name: "Beer", qty: 3 },
@@ -66,14 +67,29 @@ const addstock: any[] = [
     { name: "Cola", qty: 3 }
 ];
 
-const refill = () => {
+const refill = (addstock:{name:string,qty:number}[]) => {
     for (let i = 0; i < addstock.length; i++) {
         let drinkpick = addstock[i];
+
+        let hantei: boolean = false;
+        for (let i = 0; i < drink.length; i++) {
+            if (drink[i].name == drinkpick.name) {
+                hantei = true;
+            }
+        }
+        if (!hantei) {
+            console.log("NG", "|", drinkpick.name, "is not registered")
+            return;
+        }
+
         for (let j = 0; j < drink.length; j++) {
 
             if (drinkpick.name == drink[j].name) {
                 drink[j].qty = drink[j].qty + drinkpick.qty;
             }
+            // if(drinkpick.name != drink[j]){
+            //     console.log("NG",drinkpick.name,"is not registered")
+            // }
         }
         // Milk の補充
         // if (drinkpick.name == drink[0].name) {
@@ -88,9 +104,9 @@ const refill = () => {
     }
 
 }
-refill()
+//refill()
 
-display()
+//display()
 
 //     if (choise == drink[0].name){
 
@@ -105,4 +121,4 @@ display()
 //  console.log("OK","|","Beer purchased")
 //     }
 
-export{display,buy,refill}
+export { display, buy, refill }
